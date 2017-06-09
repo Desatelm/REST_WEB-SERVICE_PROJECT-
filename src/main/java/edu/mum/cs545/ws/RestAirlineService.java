@@ -33,8 +33,9 @@ public class RestAirlineService {
 	@Path("create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	public void  createAirline(Airline airline) {
+	public String  createAirline(Airline airline) {
 		airlineService.create(airline);
+		return "name: "+ airline.getName()+ "\nId: "+ airline.getId() + "\nsuccessfully created";
 	}
 	 
 	@Path("delet")	
@@ -46,7 +47,7 @@ public class RestAirlineService {
 	@Path("airline")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
-	public Airline findByAirline(Airline airline ) {			
+	public Airline findByAirline(@QueryParam("airline") Airline airline ) {			
 		return airlineService.find(airline);
 		}
 	
@@ -58,9 +59,9 @@ public class RestAirlineService {
     
 	@Path("name")
 	@GET
-	public String getAirlineTest() {
+	public String getAirlineTest(@QueryParam("name") String name) {
 		String result = "Nil!";		
-		Airline airline = airlineService.findByName("oneworld");		
+		Airline airline = airlineService.findByName(name);		
 			result = "This is an airline: " + airline.getName();		
 		return result;
 	}
