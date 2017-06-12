@@ -11,8 +11,6 @@ import cs545.airline.service.AirplaneService;
 import cs545.airline.service.AirportService;
 import cs545.airline.service.FlightService;
 
-
-
 public class ClassBinder extends AbstractBinder {
 
 	@Override

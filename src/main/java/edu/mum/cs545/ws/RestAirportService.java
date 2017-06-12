@@ -21,58 +21,59 @@ import cs545.airline.service.AirplaneService;
 public class RestAirportService {
 	@Inject
 	private AirplaneService airplaneService;
-	
+
 	@Path("create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	public void  createAirplane(Airplane airline) {
+	public void createAirplane(Airplane airline) {
 		airplaneService.create(airline);
 	}
-	 
-	@Path("delet")	
+
+	@Path("delet")
 	@DELETE
-	public void  deleteAirplane(Airplane airport) {
+	public void deleteAirplane(Airplane airport) {
 		airplaneService.delete(airport);
 	}
-		
+
 	@Path("findByModel")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
-	public List<Airplane> findByModel(String airplane ) {			
+	public List<Airplane> findByModel(String airplane) {
 		return airplaneService.findByModel(airplane);
-		}
-	
+	}
+
 	@Path("findByflight")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON) 
-	public List<Airplane> findByFlight(Flight flight ) {			
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Airplane> findByFlight(Flight flight) {
 		return airplaneService.findByFlight(flight);
-		}    
-		
+	}
+
 	@Path("list")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON) 	
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Airplane> getListAirline() {
-		String result = "Nil!";		
-		List<Airplane> airplanes = airplaneService.findAll();		
-		for (Airplane airline: airplanes) {
+		String result = "Nil!";
+		List<Airplane> airplanes = airplaneService.findAll();
+		for (Airplane airline : airplanes) {
 			result = "This is an airline: " + airline.getId();
 			System.out.println(result);
 		}
 		return airplanes;
 	}
-	
+
 	@Path("findBySrlnr")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON) 
-	public Airplane findBySrlnr(String airplane ) {			
+	@Produces(MediaType.APPLICATION_JSON)
+	public Airplane findBySrlnr(String airplane) {
 		return airplaneService.findBySrlnr(airplane);
-		} 
+	}
+
 	@Path("update")
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON) 
-	public Airplane update(Airplane airplane ) {			
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Airplane update(Airplane airplane) {
 		return airplaneService.update(airplane);
-		} 
+	}
 
 }

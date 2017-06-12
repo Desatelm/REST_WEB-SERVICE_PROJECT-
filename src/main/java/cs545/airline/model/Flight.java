@@ -35,17 +35,14 @@ public class Flight {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Airplane airplane;
 
-	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
-			Locale.US);
-	private static DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT,
-			Locale.US);
+	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
+	private static DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.US);
 
 	/* Constructors */
 	public Flight() {
 	}
 
-	public Flight(String flightnr, String departureDate, String departureTime,
-			String arrivalDate, String arrivalTime) {
+	public Flight(String flightnr, String departureDate, String departureTime, String arrivalDate, String arrivalTime) {
 		this.flightnr = flightnr;
 		setDepartureDate(departureDate);
 		setDepartureTime(departureTime);
@@ -53,18 +50,17 @@ public class Flight {
 		setArrivalTime(arrivalTime);
 	}
 
-	public Flight(String flightnr, String departureDate, String departureTime,
-			String arrivalDate, String arrivalTime, Airline airline,
-			Airport origin, Airport destination, Airplane airplane) {
+	public Flight(String flightnr, String departureDate, String departureTime, String arrivalDate, String arrivalTime,
+			Airline airline, Airport origin, Airport destination, Airplane airplane) {
 		this.flightnr = flightnr;
 		setDepartureDate(departureDate);
 		setDepartureTime(departureTime);
 		setArrivalDate(arrivalDate);
 		setArrivalTime(arrivalTime);
-		this.airline = airline;
-		this.origin = origin;
-		this.destination = destination;
-		this.airplane = airplane;
+		airline.addFlight(this);
+		origin.addDeparture(this);
+		destination.addArrival(this);
+		airplane.addFlight(this);
 	}
 
 	/* Getters & Setters */

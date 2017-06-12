@@ -1,26 +1,41 @@
 package cs545.airline.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(name="Airline_Name",columnNames={"name"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "Airline_Name", columnNames = { "name" }))
 public class Airline {
 	@Id
 	@GeneratedValue
 	private long id;
 	private String name;
-	@OneToMany(mappedBy = "airline")
+
+	@OneToMany(mappedBy = "airline", cascade = CascadeType.ALL)
 	@OrderBy("departureDate, departureTime")
-	private List<Flight> flights;
+	private List<Flight> flights = new ArrayList<>();
+
+	@Transient
+	private boolean editable;
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 
 	/* Constructors */
 	public Airline() {
@@ -50,10 +65,10 @@ public class Airline {
 	public List<Flight> getFlights() {
 		return Collections.unmodifiableList(flights);
 	}
-	
+
 	/* Collections Methods */
 	public boolean addFlight(Flight flight) {
-		boolean success =  (!flights.contains(flight)) && (flights.add(flight));
+		boolean success = (!flights.contains(flight)) && (flights.add(flight));
 		if (success) {
 			flight.setAirline(this);
 		}

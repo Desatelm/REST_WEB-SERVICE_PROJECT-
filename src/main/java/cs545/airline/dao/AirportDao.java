@@ -13,14 +13,16 @@ import edu.mum.gf.workaround.JpaUtil;
 @Named
 @ApplicationScoped
 public class AirportDao {
-	
-//	@PersistenceContext(unitName = "cs545")
-//	private static EntityManager entityManager;
-//  Couldn't figure out another way to inject the persistence context
+
+	// @PersistenceContext(unitName = "cs545")
+	// private static EntityManager entityManager;
+	// Couldn't figure out another way to inject the persistence context
 	private EntityManager entityManager = JpaUtil.getEntityManager();
-	
+
 	public void create(Airport airport) {
+		entityManager.getTransaction().begin();
 		entityManager.persist(airport);
+		entityManager.getTransaction().commit();
 	}
 
 	public Airport update(Airport airport) {
@@ -29,7 +31,12 @@ public class AirportDao {
 	}
 
 	public void delete(Airport airport) {
-		entityManager.remove(airport);
+		Airport toremove = entityManager.find(Airport.class, airport.getId());
+		if (toremove != null) {
+			entityManager.getTransaction().begin();
+			entityManager.remove(toremove);
+			entityManager.getTransaction().commit();
+		}
 	}
 
 	public Airport findOne(long id) {

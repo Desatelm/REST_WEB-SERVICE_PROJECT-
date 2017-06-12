@@ -24,68 +24,47 @@ import cs545.airline.service.FlightService;
 public class RestFlightService {
 	@Inject
 	private FlightService flightService;
-	
-	@Path("create")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	public void  createAirplane(Flight flight) {
-		flightService.create(flight);
-	}
-	 
-	@Path("delete")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@DELETE
-	public void delete(Flight flight) {
-		flightService.delete(flight);
-	}
-    
+
 	@Path("update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	public Flight update(Flight flight) {
 		return flightService.update(flight);
 	}
-	
+
 	@Path("find")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public Flight find(Flight flight) {
 		return flightService.find(flight);
 	}
-	
+
 	@Path("findBynumber")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public List<Flight> findByNumber(String flightnr) {
 		return flightService.findByNumber(flightnr);
 	}
-    
+
 	@Path("findByAirline")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public List<Flight> findByAirline(Airline airline) {
 		return flightService.findByAirline(airline);
 	}
-    
+
 	@Path("findByOrigin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public List<Flight> findByOrigin(Airport airport) {
 		return flightService.findByOrigin(airport);
 	}
-	
+
 	@Path("findByDestination")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public List<Flight> findByDestination(Airport airport) {
 		return flightService.findByDestination(airport);
-	}
-    
-	@Path("findByAirplaneArrival")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
-	public List<Flight> findByArrival(Airplane airplane) {
-		return flightService.findByArrival(airplane);
 	}
 
 	@Path("findByArrival")
@@ -95,27 +74,31 @@ public class RestFlightService {
 		return flightService.findByArrival(datetime);
 	}
 
-	/*@Path("findByArrivalBetween")
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	public List<Flight> findByArrivalBetween1(Date datetimeFrom, Date datetimeTo) {
-		return flightService.findByArrivalBetween(datetimeFrom, datetimeTo);
-	}
+	/*
+	 * @Path("findByArrivalBetween")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON)
+	 * 
+	 * @GET public List<Flight> findByArrivalBetween1(Date datetimeFrom, Date
+	 * datetimeTo) { return flightService.findByArrivalBetween(datetimeFrom,
+	 * datetimeTo); }
+	 * 
+	 * @Path("findByDeparture")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON)
+	 * 
+	 * @GET public List<Flight> findByDeparture1(Date datetime) { return
+	 * flightService.findByDeparture(datetime); }
+	 * 
+	 * @Path("findByDepartureBetween")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON)
+	 * 
+	 * @GET public List<Flight> findByDepartureBetween1(Date datetimeFrom, Date
+	 * datetimeTo) { return flightService.findByDepartureBetween(datetimeFrom,
+	 * datetimeTo); }
+	 */
 
-	@Path("findByDeparture")
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	public List<Flight> findByDeparture1(Date datetime) {
-		return flightService.findByDeparture(datetime);
-	}
-    
-	@Path("findByDepartureBetween")
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	public List<Flight> findByDepartureBetween1(Date datetimeFrom, Date datetimeTo) {
-		return flightService.findByDepartureBetween(datetimeFrom, datetimeTo);
-	}*/
-   
 	@Path("findAll")
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET

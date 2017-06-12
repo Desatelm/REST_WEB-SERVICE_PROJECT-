@@ -1,8 +1,10 @@
 package cs545.airline.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"airportcode"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "airportcode" }))
 public class Airport {
 	@Id
 	@GeneratedValue
@@ -21,12 +23,12 @@ public class Airport {
 	private String name;
 	private String city;
 	private String country;
-	@OneToMany(mappedBy = "destination")
+	@OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
 	@OrderBy("arrivalDate, arrivalTime")
-	private List<Flight> arrivals;
-	@OneToMany(mappedBy = "origin")
+	private List<Flight> arrivals = new ArrayList<>();
+	@OneToMany(mappedBy = "origin", cascade = CascadeType.ALL)
 	@OrderBy("departureDate, departureTime")
-	private List<Flight> departures;
+	private List<Flight> departures = new ArrayList<>();
 
 	/* Constructors */
 	public Airport() {
@@ -90,7 +92,7 @@ public class Airport {
 
 	/* Collection methods */
 	public boolean addArrival(Flight flight) {
-		boolean success =  (!arrivals.contains(flight)) && (arrivals.add(flight));
+		boolean success = (!arrivals.contains(flight)) && (arrivals.add(flight));
 		if (success) {
 			flight.setDestination(this);
 		}
@@ -107,7 +109,7 @@ public class Airport {
 	}
 
 	public boolean addDeparture(Flight flight) {
-		boolean success =  (!departures.contains(flight)) && (departures.add(flight));
+		boolean success = (!departures.contains(flight)) && (departures.add(flight));
 		if (success) {
 			flight.setOrigin(this);
 		}
