@@ -12,12 +12,14 @@
 <h:body>
 	<h1>Flight List</h1>
 	<h:form >
-	<f:ajax render=":list">
-		<h:panelGrid columns="9">			
+	
+		<h:panelGrid columns="9">	
+			
 		
 			<h:outputLabel> FiltreByAirline:</h:outputLabel>
 			<h:inputText value="#{restFlightService.airlineQ}" />				
-			<h:commandButton   value="Search"  action="#{restFlightService.findByAirline}"/>
+			<f:ajax event="keyup" listener="#{restFlightService.findByAirline}"
+				execute="@this" render="list" />	
 		
 			<h:outputLabel> FiltreBydeparture:</h:outputLabel>
 			<h:inputText value="#{restFlightService.origin}" />				
@@ -27,7 +29,7 @@
 			<h:inputText value="#{restFlightService.destination}" />				
 			<h:commandButton   value="Search"  action="#{restFlightService.findByDestination}"/>
 		</h:panelGrid>	
-		</f:ajax>	
+			
 		</h:form>
 		
 		 <h:dataTable id = "list" var="flight"  value="#{restFlightService.flightList}"   
@@ -86,7 +88,11 @@
         <h:outputText value="#{flight.airline.name}" />
         </h:column>      
         </h:dataTable>
-                
+        
+        <h:form>
+        <f:ajax render=":list">
+        <h:commandButton   value="FlightList"  action="#{restFlightService.findAll}"/>
+        </f:ajax></h:form>                
         <h:button value="HomePage" outcome="welcome" />
         
 	
