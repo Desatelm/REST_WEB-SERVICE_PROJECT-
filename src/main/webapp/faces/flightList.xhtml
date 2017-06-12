@@ -95,13 +95,13 @@
         <h:outputText value="#{flight.airline.name}" />
         </h:column>      
         </h:dataTable>
-        
+        <h:panelGrid columns="2">
         <h:form>
         <f:ajax render=":list">
         <h:commandButton   value="FlightList"  action="#{restFlightService.findAll}"/>
         </f:ajax></h:form>                
         <h:button value="HomePage" outcome="welcome" />
-        
+        </h:panelGrid>
 	
 </h:body>
 </html>
