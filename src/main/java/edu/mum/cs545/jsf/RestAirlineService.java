@@ -60,7 +60,7 @@ public class RestAirlineService implements Serializable {
 		return "airlines";
 	}
 
-	public Airline findByAirline(@QueryParam("airline") Airline airline) {
+	public Airline findByAirline( Airline airline) {
 		return airlineService.find(airline);
 	}
 

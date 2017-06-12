@@ -69,44 +69,32 @@ public class RestFlightService implements Serializable {
 		this.flightList = flightList;
 	}
 
-	@Path("update")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
+	
 	public Flight update(Flight flight) {
 		return flightService.update(flight);
 	}
 
-	@Path("find")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
+	
 	public Flight find(Flight flight) {
 		return flightService.find(flight);
 	}
 
-	@Path("findBynumber")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
-	public String findByNumber() {
+	
+	public void findByNumber() {
 
 		flightList = flightService.findByNumber(airlineQ);
-
-		return "flightList";
+		
 	}
 
-	@Path("findByAirline")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
-	public String findByAirline() {
+	
+	public void findByAirline() {
 
 		Airline airline = airlineServic.findByName(airlineQ);
 		flightList = flightService.findByAirline(airline);
-
-		return "flightList";
+		
 	}
 
-	@Path("findByOrigin")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
+	
 	public String findByOrigin() {
 
 		Airport airport = airportService.findByCode(origin);
@@ -114,18 +102,13 @@ public class RestFlightService implements Serializable {
 		return "flightList";
 	}
 
-	@Path("findByDestination")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
-	public String findByDestination() {
+	
+	public void findByDestination() {
 		Airport airport = airportService.findByCode(destination);
 		flightList = flightService.findByDestination(airport);
-		return "flightList";
+		
 	}
-
-	@Path("findByArrival")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
+	
 	public List<Flight> findByDateArrival(Date datetime) {
 		return flightService.findByArrival(datetime);
 	}
