@@ -9,6 +9,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -38,7 +39,13 @@ public class RestAirlineService {
 		airline.setId(id);
 		airlineService.delete(airline);
 	}
-
+    
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Airline update(Airline airline) {
+		return airlineService.update(airline);
+	}
+	
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	public Airline findByAirline(@QueryParam("airline") Airline airline) {
